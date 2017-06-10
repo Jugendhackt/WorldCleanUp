@@ -1,0 +1,164 @@
+<!DOCTYPEHtml>
+<html>
+<head>
+    <!--Ressourcen Packete von der Karte einügen-->
+    <title>WebApp</title> <!--Website Titel-->
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet' />
+    
+    <style>
+        body { margin:0; padding:0; background-color: #85929E; }
+        #map { position:absolute; top:70px; bottom:70px; right: 70px; left: 70px; }
+        h1 { text-align: center; color: #34495E; }
+        @media screen and (max-width: 30em) {
+            #map {
+                top: 25px;
+                bottom: 25px;
+                right: 25px;
+                left: 25px;
+                position: absolute;
+            }
+        }
+    </style>
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.36.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.36.0/mapbox-gl.css' rel='stylesheet' />
+
+</head>
+
+<body>
+    <h1>OCU OceanCleanUp WebApp</h1>    <!--Zur Not in HTML schreiben!!!-->
+    <!--Im Body befinden sich: Die Karte, Die Buttons, Die weiteren Detailinformationen über Standpunkte auf der Karte-->
+    <style>
+    .mapboxgl-popup {
+        max-width: 400px;
+        font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    }
+</style>
+<div id='map'></div>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1Ijoid29ybGRjbGVhbnVwIiwiYSI6ImNqM3I1NG9xaTAwMDkzdWtjZG5kNTB4Z3YifQ.w2P1kGRmiJVGzgITtFL-lQ';
+
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v9',
+        //center: [3.515625, 56.511018],
+        backgroundcolor: '#3BEBFD',
+        zoom: 11.15
+    });
+
+    map.on('load', function () {
+
+        // Add a layer showing the places.
+
+        map.addLayer({
+        "id": "places",
+        "type": "symbol",
+        "source": {
+            "type": "geojson",
+            "data": {
+                "type": "FeatureCollection",
+                "features": [{
+                    "type": "Feature",
+                    "properties": {
+                        "description": "<strong>Muellstrudel_1</strong><p><a>Weitere Details:</a><p>Koordinaten: [3.515625, 56.511018]</p> <p>Added at 10.06.2017-14.20 a.m.</p></p>",
+
+                        //<button>Editor Mode</button><button>Comment</button>, wäre eine weitere Verbesserung, 
+                        //um die Koordinaten zu korrigieren oder sich in der Community über die Müllstrudel und das geschäft auszutauschen.
+
+                        "icon": "theatre"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [3.515625, 56.511018]     //Koordinaten werden mit Längexbreite aufgeschrieben in dieser Map-Libary 
+                    }
+                }, { 
+                    "type": "Feature",
+                    "properties": {
+                        "description": "<strong>Muellstrudel_2</strong><p><a>Weitere Details:</a><p>Koordinaten: [-77.003168, 38.894651]</p><p>Added at 10.06.2017 15.46 a.m.</p>",
+                        "icon": "theatre"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-77.003168, 38.894651]   //Koordinaten werden mit Längexbreite aufgeschrieben in dieser Map-Libary 
+                    }
+                }, {
+                    "type": "Feature",
+                    "properties": {
+                        "description": "<strong>Muellstrudel_3</strong><p><a>Weitere Details:</a><p>Koordinaten: [-38.894651, 77.003168]</p><p>Added at 16.44 a.m.</p>",
+                        "icon": "theatre"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-38.894651, 77.003168]   //Koordinaten werden mit Längexbreite aufgeschrieben in dieser Map-Libary 
+                    }
+                }, {
+                   "type": "Feature",
+                    "properties": {
+                        "description": "<strong>Muellstrudel_4</strong><p><a>Weitere Details:</a><p>Koordinaten: [-77.03652979999998, 38.8976763]</p><p>!_White House_!</p><p>Added at 16.56 a.m.</p>",
+                        "icon": "theatre"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-77.03652979999998, 38.8976763]    //Koordinaten werden mit Längexbreite aufgeschrieben in dieser Map-Libary 
+                  }
+                }, {
+                   "type": "Feature",
+                    "properties": {
+                        "description": "<strong>Muellstrudel_5</strong><p><a>Weitere Details:</a><p>Koordinaten: [-33.684208393096924, 49.5931357620285]</p><p>Laut OCU Offizieller Muellstrudel</p><p>Added at 18.03 a.m.</p>",
+                        "icon": "theatre"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-33.684208393096924, 49.5931357620285]    //Koordinaten werden mit Längexbreite aufgeschrieben in dieser Map-Libary 
+                  }
+                }
+              ]
+            }
+        },
+        "layout": {
+            "icon-image": "{icon}-15",
+            "icon-allow-overlap": true
+        }
+    });
+
+    // When a click event occurs on a feature in the places layer, open a popup at the
+    // location of the feature, with description HTML from its properties.
+
+    map.on('click', 'places', function (e) {
+        new mapboxgl.Popup()
+            .setLngLat(e.features[0].geometry.coordinates)
+            .setHTML(e.features[0].properties.description)
+            .addTo(map);
+    });
+    
+    // Change the cursor to a pointer when the mouse is over the places layer.
+
+     map.on('mouseenter', 'places', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+     // Change it back to a pointer when it leaves.
+
+     map.on('mouseleave', 'places', function () {
+        map.getCanvas().style.cursor = '';
+    });
+});
+
+    </script>
+
+    <div id='map' style='width: 400px; height: 300px;'></div>
+    
+    <script>
+        //Mapbox Stylesheet und Grafik wird von dem Mapbox Server abgerufen.
+
+        mapboxgl.accessToken = 'pk.eyJ1Ijoid29ybGRjbGVhbnVwIiwiYSI6ImNqM3I1NG9xaTAwMDkzdWtjZG5kNTB4Z3YifQ.w2P1kGRmiJVGzgITtFL-lQ';
+        var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/outdoors-v10'
+        });
+    </script>
+</body>
+</html>
