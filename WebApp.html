@@ -1,6 +1,7 @@
 <!DOCTYPEHtml>
 <html>
 <head>
+    <meta charset="utf-8">
     <!--Ressourcen Packete von der Karte einügen-->
     <title>WebApp</title> <!--Website Titel-->
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
@@ -9,7 +10,7 @@
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet' />
     
     <style>
-        body { margin:0; padding:0; background-color: #85929E; }
+        body { margin:0; padding:0; background-color: #EBEDEF; }
         #map { position:absolute; top:70px; bottom:70px; right: 70px; left: 70px; }
         h1 { text-align: center; color: #34495E; }
         @media screen and (max-width: 30em) {
@@ -20,6 +21,15 @@
                 left: 25px;
                 position: absolute;
             }
+        }                   /*Evtl. könnte man so etwas wie für Maximal widht options auch eine IF Schleife für Maximal Height schreiben...*/
+        button { position: absolute; }
+
+        /*Div für alle Images geschaffen um eine Grafikpalette zu erstellen.*/
+
+        #buttons {
+            bottom: 25px;
+            position: absolute;
+            left: 40%;
         }
     </style>
 
@@ -31,6 +41,7 @@
 <body>
     <h1>OCU OceanCleanUp WebApp</h1>    <!--Zur Not in HTML schreiben!!!-->
     <!--Im Body befinden sich: Die Karte, Die Buttons, Die weiteren Detailinformationen über Standpunkte auf der Karte-->
+    
     <style>
     .mapboxgl-popup {
         max-width: 400px;
@@ -44,8 +55,7 @@
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v9',
-        //center: [3.515625, 56.511018],
-        backgroundcolor: '#3BEBFD',
+        center: [3.515625, 56.511018],    //...Das ist für die Hintergrund Bug map, momentan ist eigentlich eine Farbe in Hexadezimal rein
         zoom: 11.15
     });
 
@@ -63,7 +73,7 @@
                 "features": [{
                     "type": "Feature",
                     "properties": {
-                        "description": "<strong>Muellstrudel_1</strong><p><a>Weitere Details:</a><p>Koordinaten: [3.515625, 56.511018]</p> <p>Added at 10.06.2017-14.20 a.m.</p></p>",
+                        "description": "<strong>Müllstrudel_1</strong><p><a>Weitere Details:</a><p>Koordinaten: [3.515625, 56.511018]</p> <p>Added at 10.06.2017-14.20 a.m.</p></p>",
 
                         //<button>Editor Mode</button><button>Comment</button>, wäre eine weitere Verbesserung, 
                         //um die Koordinaten zu korrigieren oder sich in der Community über die Müllstrudel und das geschäft auszutauschen.
@@ -77,7 +87,7 @@
                 }, { 
                     "type": "Feature",
                     "properties": {
-                        "description": "<strong>Muellstrudel_2</strong><p><a>Weitere Details:</a><p>Koordinaten: [-77.003168, 38.894651]</p><p>Added at 10.06.2017 15.46 a.m.</p>",
+                        "description": "<strong>Müllstrudel_2</strong><p><a>Weitere Details:</a><p>Koordinaten: [-77.003168, 38.894651]</p><p>Added at 10.06.2017 15.46 a.m.</p>",
                         "icon": "theatre"
                     },
                     "geometry": {
@@ -87,7 +97,7 @@
                 }, {
                     "type": "Feature",
                     "properties": {
-                        "description": "<strong>Muellstrudel_3</strong><p><a>Weitere Details:</a><p>Koordinaten: [-38.894651, 77.003168]</p><p>Added at 16.44 a.m.</p>",
+                        "description": "<strong>Müllstrudel_3</strong><p><a>Weitere Details:</a><p>Koordinaten: [-38.894651, 77.003168]</p><p>Added at 16.44 a.m.</p>",
                         "icon": "theatre"
                     },
                     "geometry": {
@@ -97,7 +107,7 @@
                 }, {
                    "type": "Feature",
                     "properties": {
-                        "description": "<strong>Muellstrudel_4</strong><p><a>Weitere Details:</a><p>Koordinaten: [-77.03652979999998, 38.8976763]</p><p>!_White House_!</p><p>Added at 16.56 a.m.</p>",
+                        "description": "<strong>Müllstrudel_4</strong><p><a>Weitere Details:</a><p>Koordinaten: [-77.03652979999998, 38.8976763]</p><p>!_White House_!</p><p>Added at 16.56 a.m.</p>",
                         "icon": "theatre"
                     },
                     "geometry": {
@@ -107,7 +117,7 @@
                 }, {
                    "type": "Feature",
                     "properties": {
-                        "description": "<strong>Muellstrudel_5</strong><p><a>Weitere Details:</a><p>Koordinaten: [-33.684208393096924, 49.5931357620285]</p><p>Laut OCU Offizieller Muellstrudel</p><p>Added at 18.03 a.m.</p>",
+                        "description": "<strong>Müllstrudel_5</strong><p><a>Weitere Details:</a><p>Koordinaten: [-33.684208393096924, 49.5931357620285]</p><p>Laut OCU Offizieller Müllstrudel</p><p>Added at 18.03 a.m.</p>",
                         "icon": "theatre"
                     },
                     "geometry": {
@@ -147,6 +157,11 @@
     });
 });
 
+    function addfunction() {
+        alert("Hallo Welt");
+        
+    }
+
     </script>
 
     <div id='map' style='width: 400px; height: 300px;'></div>
@@ -160,5 +175,8 @@
         style: 'mapbox://styles/mapbox/outdoors-v10'
         });
     </script>
+    <div id="buttons">
+        <img src="plus butten2desktop1.png" onclick="addfunction()"><img src="minusbutton2desktop2.png"><img src="sauberbutton2desktop4.png"><img src="müllbutton2desktop3.png"><a href="https://www.theoceancleanup.com/"><img src="AppIcondesktop5.png"></a>
+    </div>
 </body>
 </html>
