@@ -157,9 +157,72 @@
     });
 });
 
+    function appleticoneggfunction() {
+        alert("Alpakitän, Ahoi...");
+
+        //Alpakitän Ahoi, Easteregg mit Alpaka Bild wenn AppIcon mit Verlinkung gedrückt.
+    
+    }
+
+    //Die add function dient dazu neue Müllstrudel hinzuzufügen auf der Map.
+
     function addfunction() {
-        alert("Hallo Welt");
-        
+        var Längengrad= parseFloat(prompt( "Längengrad:" ));
+        var Breitengrad= parseFloat(prompt( "Breitengrad:" ));
+        var Name= prompt( "Name:" );
+        var WeitereDetails = prompt( "Details:" );
+        var AddDatum= prompt( "Added at:" );
+
+        map.addLayer({
+        "id": "addplace",
+        "type": "symbol",
+        "source": {
+            "type": "geojson",
+            "data": {
+                "type": "FeatureCollection",
+                "features": [{
+                    "type": "Feature",
+                    "properties": {
+                        "description": "<strong>"+Name+"</strong><p><a>Weitere Details:</a><p>"+WeitereDetails+"</p><p>Koordinaten: ["+Längengrad+", "+Breitengrad+"]</p> <p><a>Added at:</a><a>"+AddDatum+"</a></p></p>",
+
+                        "icon": "theatre"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [Längengrad, Breitengrad]     
+                  }
+                 }  
+               ]
+             }
+        },
+        "layout": {
+            "icon-image": "{icon}-15",
+            "icon-allow-overlap": true
+        }
+    });
+
+    map.on('click', 'addplace', function (e) {
+        new mapboxgl.Popup()
+            .setLngLat(e.features[0].geometry.coordinates)
+            .setHTML(e.features[0].properties.description)
+            .addTo(map);
+    });
+
+     map.on('mouseenter', 'addplace', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+
+     map.on('mouseleave', 'addplace', function () {
+        map.getCanvas().style.cursor = '';
+    });
+   }
+
+    //Disadd function dient dazu die bestehenden Müllstrudel Icons wenn sie falsch sind oder nicht mehr exestieren zu löschen.
+
+    function disaddfunction() {
+         var Koordinaten= prompt( "Koordinaten:" );
+         var Name= prompt( "Name:" );
     }
 
     </script>
@@ -167,6 +230,7 @@
     <div id='map' style='width: 400px; height: 300px;'></div>
     
     <script>
+
         //Mapbox Stylesheet und Grafik wird von dem Mapbox Server abgerufen.
 
         mapboxgl.accessToken = 'pk.eyJ1Ijoid29ybGRjbGVhbnVwIiwiYSI6ImNqM3I1NG9xaTAwMDkzdWtjZG5kNTB4Z3YifQ.w2P1kGRmiJVGzgITtFL-lQ';
@@ -174,9 +238,21 @@
         container: 'map',
         style: 'mapbox://styles/mapbox/outdoors-v10'
         });
+
     </script>
+
     <div id="buttons">
-        <img src="plus butten2desktop1.png" onclick="addfunction()"><img src="minusbutton2desktop2.png"><img src="sauberbutton2desktop4.png"><img src="müllbutton2desktop3.png"><a href="https://www.theoceancleanup.com/"><img src="AppIcondesktop5.png"></a>
+        <img src="plus butten2desktop1.png" onclick="addfunction()"><img src="minusbutton2desktop2.png" onclick="disaddfunction()"><img src="sauberbutton2desktop4.png" onclick=""><img src="müllbutton2desktop3.png" onclick=""><a href="https://www.theoceancleanup.com/" target="_blank"><img src="AppIcondesktop5.png" onclick="appleticoneggfunction()"></a>
     </div>
+
+    <!--Alert Schleife aufgerufen, um die Grafik zu ändern und eine Add Funktion zu schreiben.-->
+
+<!--<alert> 
+    <form onsubmit="confirmInput()" action="">
+        Enter your name: <input id="fname" type="text" size="20">
+        <input type="submit">
+    </form>
+</alert>-->
+
 </body>
 </html>
